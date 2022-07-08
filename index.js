@@ -1,605 +1,306 @@
-console.log("hello worldsss");
-// variables
+$(document).on("input", "#Tempo", function () {
+  GetResults();
+});
+
+$(document).on("input", "#releseRange", function () {
+  GetResults();
+});
+
+$(document).on("input", "#releseRange", function () {
+  GetResults();
+});
+
+$(document).on("input", "#trajectory", function () {
+  GetResults();
+});
+
+$(document).on("input", "#spin", function () {
+  GetResults();
+});
+
+$(document).on("input", "#distanceControl", function () {
+  GetResults();
+});
+
+$(document).on("input", "#weight", function () {
+  GetResults();
+});
+
+$(document).on("input", "#swing_speed", function () {
+  GetResults();
+});
+
+$('input[type="radio"]').on("click change", function (e) {
+  GetResults();
+});
 
 let shafts = AvailableShafts;
-let OrginalShafts = AvailableShafts;
-// Events
 
-$("#Qone").click(function () {
-  event.preventDefault();
-  //hide Question
-  $(".questionOne").addClass("hide");
+let TempoConverted = "Smooth";
+let ReleaseConverted = "EARLY";
+let trajectoryConverted = "LOW";
+let SpinConverted = "LOW";
+let distanceConverted = "Control";
+let WeightConverted = "LITE";
 
-  console.log($("#Steel").is(":checked"));
-  console.log($("#Graphite").is(":checked"));
-  getOptions($("#Steel").is(":checked"));
+function GetResults() {
+  //getAllValues
+  let Tempo = $("#Tempo").val();
+  let releseRange = $("#releseRange").val();
+  let trajectory = $("#trajectory").val();
+  let spin = $("#spin").val();
+  let distanceControl = $("#distanceControl").val();
+  let weight = $("#weight").val();
 
-  $(".questionTwo").removeClass("hide");
-  buildQtwo();
-});
+  ResetCount();
 
-$("#Qtwo").click(function () {
-  event.preventDefault();
+  CalcTemp(Tempo);
+  CalcreleseRange(releseRange);
+  CalcTrajectory(trajectory);
+  CalcSpin(spin);
+  CalDistanceControl(distanceControl);
+  Calcweight(weight);
+  // console.log($("input[name=GraphiteBTN]:checked").val());
 
-  $(".questionTwo").addClass("hide");
-
-  getNextOption("tempo", $("input[name=tempo]:checked", ".tempoOPtions").val());
-  $(".questionThree").removeClass("hide");
-  buildQThree();
-});
-
-$("#Qthree").click(function () {
-  event.preventDefault();
-
-  $(".questionThree").addClass("hide");
-
-  getNextFour(
-    "SwingSpeed",
-    $("input[name=SwingSpeed]:checked", ".swingSpeedOPtions").val()
-  );
-  $(".questionFour").removeClass("hide");
-  BuildLastOption();
-
-  //   buildQfour();
-});
-
-$("#Qfour").click(function () {
-  event.preventDefault();
-
-  $(".questionFour").addClass("hide");
-  console.log();
-  getNextfive(
-    "relese",
-    $("input[name=relese]:checked", ".releaseOPtions").val()
-  );
-
-  $(".questionFive").removeClass("hide");
-  BuildFithOption();
-});
-
-$("#QFive").click(function () {
-  event.preventDefault();
-
-  $(".questionFive").addClass("hide");
-  console.log();
-  getNextSix(
-    "trajectory",
-    $("input[name=trajectory]:checked", ".TrajectoryOPtions").val()
-  );
-
-  $(".questionSix").removeClass("hide");
-  BuildSixOption();
-});
-
-$("#QSix").click(function () {
-  event.preventDefault();
-
-  $(".questionSix").addClass("hide");
-  console.log();
-  getNextSeven("spin", $("input[name=spin]:checked", ".spinOPtions").val());
-
-  $(".questionSeven").removeClass("hide");
-  BuildSevenOption();
-});
-
-$("#QSeven").click(function () {
-  event.preventDefault();
-
-  $(".questionSeven").addClass("hide");
-  console.log();
-  getNextEight(
-    "distance_control",
-    $("input[name=distance_control]:checked", ".distance_controlOPtions").val()
-  );
-
-  $(".questioneight").removeClass("hide");
-  BuildEighOption();
-});
-
-$("#QEight").click(function () {
-  event.preventDefault();
-
-  $(".questioneight").addClass("hide");
-  console.log();
-  getfinalPoints(
-    "weight",
-    $("input[name=weight]:checked", ".weightOPtions").val()
-  );
-
-  $(".answerReveal ").removeClass("hide");
-  $(".myChartTwo ").removeClass("opacityZero");
-
-  // generateChart();
-  // $(".myshaft").text(winner.shaft_name);
-});
-
-// Functions;
-function checkAnswer() {
-  // if (shafts.length > 1) {
-  //   $(".questionFour").removeClass("hide");
-  //   BuildLastOption();
-  // } else {
-  //   $(".answerReveal").removeClass("hide");
-  //   $(".myshaft").text(shafts[0].shaft_name);
-  // }
-}
-function getfinalPoints(myKey, value) {
-  console.log("value", value);
-  console.log("before", shafts);
-  shafts = shafts.filter((obj) => obj.weight === value);
-  console.log("final", value);
-  let num = 0;
-  if (value === "LITE") {
-    num = 3;
-  }
-  if (value === "MID") {
-    num = 5;
-  }
-  if (value === "TOUR") {
-    num = 8;
-  }
-  if (value === "HEAVY") {
-    console.log("its heavy!!! ");
-    num = 10;
-  }
-  console.log("my number", num);
-  addData(myChartTwo, "weight", num);
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.weight === value) {
-      arrayItem.count += 10;
-    }
-  });
-  updateChart("answer reveal ");
+  ShowResults($("input[name=GraphiteBTN]:checked").val());
 }
 
-function getNextEight(myKey, value) {
-  console.log("value", value);
-  console.log("before", shafts);
-  shafts = shafts.filter((obj) => obj.distance_control === value);
-  console.log("final", shafts);
-
-  let num = 0;
-  if (value === "DISTANCE/CONTROL") {
-    num = 5;
-  } else if (value === "DISTANCE") {
-    num = 10;
-  }
-
-  addData(myChartTwo, "DISTANCE (10) or CONTROL (0)", num);
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.distance_control === value) {
-      arrayItem.count += 10;
-    }
+function ResetCount() {
+  $(".myResults").html("");
+  shafts.forEach(function (arrayItem) {
+    arrayItem.count = 0;
   });
-
-  updateChart(" Distance question");
-}
-function getNextSeven(myKey, value) {
-  console.log("value", value);
-  console.log("before", shafts);
-  shafts = shafts.filter((obj) => obj.spin === value);
-  console.log("final", shafts);
-  let num = 0;
-  if (value === "MID") {
-    num = 5;
-  } else if (value === "HIGH") {
-    num = 10;
-  }
-
-  addData(myChartTwo, "Spin", num);
-
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.spin === value) {
-      arrayItem.count += 10;
-    }
-  });
-
-  updateChart(" Spin question");
-  checkAnswer();
+  // console.log("count reset", shafts);
 }
 
-function getNextSix(myKey, value) {
-  console.log("value", value);
-  console.log("before", shafts);
-  shafts = shafts.filter((obj) => obj.trajectory === value);
-  console.log("final", shafts);
+function ShowResults(value) {
+  var Material = value;
+  sortByKey(shafts, "count");
+  shafts = shafts.reverse();
+  let filteredshafts = shafts.filter((shafts) => shafts.material == value);
 
-  let num = 0;
-  if (value === "MID") {
-    num = 5;
-  } else if (value === "HIGH") {
-    num = 10;
-  }
+  // filteredshafts = filteredshafts.slice(0, 4);
+  // console.log("Results", filteredshafts);
 
-  addData(myChartTwo, "trajectory", num);
+  filteredshafts = filterSwingSpeed(filteredshafts);
+  // console.log("Results", filteredshafts);
 
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.trajectory === value) {
-      arrayItem.count += 10;
-    }
-  });
+  if (filteredshafts.length > 0) {
+    let html = "";
+    filteredshafts.forEach(function (arrayItem) {
+      html += `
+    <div class="col-md-4">
+    <div class="items ">
 
-  updateChart(" quetsion Five");
-  checkAnswer();
-}
+    <h4 class="resultTitle">
+    ${arrayItem.shaft_name} 
+    </h4>
+    <h5>  Swing Speed: ${arrayItem.swing_speed}</h5>
 
-function getNextfive(myKey, value) {
-  console.log("value", value);
-  console.log("before", shafts);
-  shafts = shafts.filter((obj) => obj.relese === value);
-  console.log("final", shafts);
+    <div class="categroy ${TempoConverted == arrayItem.tempo ? "green" : ""}">
+       <p class="catName">TEMPO : ${arrayItem.tempo} </p> 
+    </div>
 
-  let num = 0;
-  if (value === "MID") {
-    num = 5;
-  } else if (value === "LATE") {
-    num = 10;
-  }
+     <div class="categroy ${
+       ReleaseConverted == arrayItem.relese ? "green" : ""
+     }">
+       <p class="catName">Release : ${arrayItem.relese} </p> 
+    </div>
 
-  addData(myChartTwo, "Release", num);
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.relese === value) {
-      arrayItem.count += 10;
-    }
-  });
 
-  updateChart(" LAST QUESTION");
-  checkAnswer();
-}
+   <div class="categroy ${
+     trajectoryConverted == arrayItem.trajectory ? "green" : ""
+   }">
+      <p class="catName"> TRAJECTORY : ${arrayItem.trajectory} </p> 
+    </div>
 
-function BuildEighOption(myKey, value) {
-  let weightOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.weight;
+   <div class="categroy ${SpinConverted == arrayItem.spin ? "green" : ""}">
+       <p class="catName">SPIN :  ${arrayItem.spin}</p> 
+   </div>
 
-    weightOptions.indexOf(x) === -1
-      ? weightOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(weightOptions);
+    <div class="categroy ${
+      distanceConverted == arrayItem.distance_control ? "green" : ""
+    }">
+       <p class="catName">Disrtance or Control :  ${
+         arrayItem.distance_control
+       }</p> 
+    </div>
 
-  weightOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-      <div class="form-check">
-      <input class="form-check-input" qTwoinput" type="radio" name="weight" id="${arrayItem}" value="${arrayItem}" >
-      <label class="form-check-label" for="flexRadioDefault2">
-        ${arrayItem}
-        </label>
-            </div>
-      `;
-    newhtml += htmlOPtion;
-  });
-  $(".weightOPtions").append(newhtml);
-}
-function BuildSevenOption(myKey, value) {
-  let distance_controlOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.distance_control;
+     <div class="categroy  ${
+       WeightConverted == arrayItem.weight ? "green" : ""
+     }">
+      <p class="catName"> Weight : ${arrayItem.weight}</p> 
+    </div>
 
-    distance_controlOptions.indexOf(x) === -1
-      ? distance_controlOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(distance_controlOptions);
-
-  distance_controlOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-      <div class="form-check">
-      <input class="form-check-input" qTwoinput" type="radio" name="distance_control" id="${arrayItem}" value="${arrayItem}" >
-      <label class="form-check-label" for="flexRadioDefault2">
-        ${arrayItem}
-        </label>
-            </div>
-      `;
-    newhtml += htmlOPtion;
-  });
-  $(".distance_controlOPtions").append(newhtml);
-}
-
-function BuildSixOption(myKey, value) {
-  let spinOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.spin;
-
-    spinOptions.indexOf(x) === -1
-      ? spinOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(spinOptions);
-
-  spinOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-      <div class="form-check">
-      <input class="form-check-input" qTwoinput" type="radio" name="spin" id="${arrayItem}" value="${arrayItem}" >
-      <label class="form-check-label" for="flexRadioDefault2">
-        ${arrayItem}
-        </label>
-            </div>
-      `;
-    newhtml += htmlOPtion;
-  });
-  $(".SpinOPtions").append(newhtml);
-}
-
-function BuildFithOption(myKey, value) {
-  let trajectoryOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.trajectory;
-
-    trajectoryOptions.indexOf(x) === -1
-      ? trajectoryOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(trajectoryOptions);
-
-  trajectoryOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-      <div class="form-check">
-      <input class="form-check-input" qTwoinput" type="radio" name="trajectory" id="${arrayItem}" value="${arrayItem}" >
-      <label class="form-check-label" for="flexRadioDefault2">
-        ${arrayItem}
-        </label>
-            </div>
-      `;
-    newhtml += htmlOPtion;
-  });
-  $(".TrajectoryOPtions").append(newhtml);
-}
-function BuildLastOption(myKey, value) {
-  let releseOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.relese;
-
-    releseOptions.indexOf(x) === -1
-      ? releseOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(releseOptions);
-
-  releseOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-      <div class="form-check">
-      <input class="form-check-input" qTwoinput" type="radio" name="relese" id="${arrayItem}" value="${arrayItem}" >
-      <label class="form-check-label" for="flexRadioDefault2">
-        ${arrayItem}
-        </label>
-            </div>
-      `;
-    newhtml += htmlOPtion;
-  });
-  $(".releaseOPtions").append(newhtml);
-}
-function getNextFour(myKey, value) {
-  shafts = shafts.filter((obj) => obj.swing_speed === value);
-  console.log(shafts);
-
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.swing_speed === value) {
-      arrayItem.count += 10;
-    }
-  });
-
-  updateChart(" question Two");
-}
-
-function getNextOption(myKey, value) {
-  shafts = shafts.filter((obj) => obj.tempo === value);
-  console.log(shafts);
-  let num = 0;
-  if (value === "QUICK") {
-    num = 10;
-  } else if (value === "MODERATE") {
-    num = 5;
-  }
-  addData(myChartTwo, "Tempo", num);
-
-  OrginalShafts.forEach(function (arrayItem) {
-    if (arrayItem.tempo === value) {
-      arrayItem.count += 10;
-    }
-  });
-  updateChart(" question Two");
-}
-
-function buildQThree() {
-  let swing_speedOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.swing_speed;
-
-    swing_speedOptions.indexOf(x) === -1
-      ? swing_speedOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(swing_speedOptions);
-
-  swing_speedOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-    <div class="form-check">
-    <input class="form-check-input" qTwoinput" type="radio" name="SwingSpeed" id="${arrayItem}" value="${arrayItem}" >
-    <label class="form-check-label" for="flexRadioDefault2">
-      ${arrayItem}
-      </label>
-          </div>
-    `;
-    newhtml += htmlOPtion;
-  });
-  $(".swingSpeedOPtions").append(newhtml);
-}
-
-function getOptions(steel) {
-  if (steel) {
-    shafts = shafts.filter((obj) => obj.material != "Graphite");
-    OrginalShafts.forEach(function (arrayItem) {
-      if (arrayItem.material === "STEEL") {
-        arrayItem.count += 10;
-      }
+    <p class="p-total">(Point Total: ${arrayItem.count})</p>
+    
+    </div> </div>`;
     });
-    console.log(shafts);
+
+    $(".myResults").append(html);
   } else {
-    shafts = shafts.filter((obj) => obj.material != "STEEL");
-
-    OrginalShafts.forEach(function (arrayItem) {
-      if (arrayItem.material === "Graphite") {
-        arrayItem.count += 10;
-      }
-    });
-
-    console.log(shafts);
+    let html = `<div class="no-results parent"> <div class="child"> <h3> Looks like This configuration has no results!</h3> <h5> Try changing your configuration material.. </h5>  </div> </div> `;
+    $(".myResults").append(html);
   }
-  updateChart("questin one");
 }
 
-function buildQtwo() {
-  let tempoOptions = [];
-  let newhtml = "";
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.tempo;
+function filterSwingSpeed(value) {
+  let unfiltered = value;
+  let filtered = unfiltered.filter(
+    (unfiltered) => $("#swing_speed").val() >= unfiltered.swing_speed_min
+  );
 
-    tempoOptions.indexOf(x) === -1
-      ? tempoOptions.push(x)
-      : console.log("This item already exists");
-  });
-  console.log(tempoOptions);
+  let filteredByMax = filtered.filter(
+    (filtered) => $("#swing_speed").val() <= filtered.swing_speed_max
+  );
 
-  tempoOptions.forEach(function (arrayItem) {
-    let htmlOPtion = `
-    <div class="form-check">
-    <input class="form-check-input" qTwoinput" type="radio" name="tempo" id="${arrayItem}" value="${arrayItem}" >
-    <label class="form-check-label" for="flexRadioDefault2">
-      ${arrayItem}
-      </label>
-          </div>
-    `;
-    newhtml += htmlOPtion;
-  });
-  $(".tempoOPtions").append(newhtml);
+  console.log("first filter", filtered);
+  console.log("secound filter", filteredByMax);
+
+  return filteredByMax;
 }
-
-//////
-
-let myData = [];
-let myCount = [];
-
-const ctx = document.getElementById("myChart").getContext("2d");
-const myChart = new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: myData,
-    datasets: [
-      {
-        // label: "# of Votes",
-        data: myCount,
-        backgroundColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 5,
-      },
-    ],
-  },
-  //   options: {
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true,
-  //       },
-  //     },
-  //   },
-});
-
-function updateChart(location) {
-  console.log(location);
-  let newData = [];
-  let newCount = [];
-  OrginalShafts.forEach(function (arrayItem) {
-    removeData(myChart);
-  });
-  OrginalShafts.forEach(function (arrayItem) {
-    var x = arrayItem.shaft_name;
-    var y = arrayItem.count;
-
-    addData(myChart, x, y);
-    newData.push(x);
-    newCount.push(y);
+function sortByKey(array, key) {
+  return array.sort(function (a, b) {
+    var x = a[key];
+    var y = b[key];
+    return x < y ? -1 : x > y ? 1 : 0;
   });
 }
 
-updateChart();
+function CalcTemp(value) {
+  console.log(value);
+  let Tempo = "SMOOTH";
+  if (value == 0) {
+    Tempo = "SMOOTH";
+  }
+  if (value == 2.5) {
+    Tempo = "MODERATE";
+  }
+  if (value == 5) {
+    Tempo = "QUICK";
+  }
 
-function removeData(chart) {
-  chart.data.labels.pop();
-  chart.data.datasets.forEach((dataset) => {
-    console.log("yolo");
-    dataset.data.pop();
+  TempoConverted = Tempo;
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.tempo === Tempo) {
+      arrayItem.count += 10;
+    }
   });
-  chart.update();
+  // console.log("tempo Shafts", shafts);
 }
 
-function addData(chart, label, data) {
-  chart.data.labels.push(label);
-  chart.data.datasets.forEach((dataset) => {
-    dataset.data.push(data);
+function CalcreleseRange(value) {
+  let Release = "EARLY";
+  if (value == 0) {
+    Release = "EARLY";
+  }
+  if (value == 2.5) {
+    Release = "MID";
+  }
+  if (value == 5) {
+    Release = "LATE";
+  }
+
+  ReleaseConverted = Release;
+
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.relese === Release) {
+      arrayItem.count += 10;
+    }
   });
-  chart.update();
+  // console.log("Relese Shafts", shafts);
 }
 
-$(".clearDatabtn").click(function () {
-  event.preventDefault();
-  console.log("removing dat");
-  removeData(myChart);
-});
+function CalcTrajectory(value) {
+  let Trajectory = "LOW";
+  if (value == 0) {
+    Trajectory = "LOW";
+  }
+  if (value == 2.5) {
+    Trajectory = "MID";
+  }
+  if (value == 5) {
+    Trajectory = "HIGH";
+  }
 
-const ctxx = document.getElementById("myChartTwo").getContext("2d");
-const myChartTwo = new Chart(ctxx, {
-  type: "radar",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "Stats",
-        data: [],
-        backgroundColor: [
-          "rgba(255, 99, 132, .5)",
-          "rgba(54, 162, 235, .5)",
-          "rgba(255, 206, 86, .5)",
-          "rgba(75, 192, 192, .5)",
-          "rgba(153, 102, 255, .5)",
-          "rgba(255, 159, 64, .5)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 5,
-      },
-    ],
-  },
-  //   options: {
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true,
-  //       },
-  //     },
-  //   },
-});
+  trajectoryConverted = Trajectory;
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.trajectory === Trajectory) {
+      arrayItem.count += 10;
+    }
+  });
+  // console.log("Trajectory Shafts", shafts);
+}
+
+function CalcSpin(value) {
+  let spin = "LOW";
+  if (value == 0) {
+    spin = "LOW";
+  }
+  if (value == 2.5) {
+    spin = "MID";
+  }
+  if (value == 5) {
+    spin = "HIGH";
+  }
+
+  SpinConverted = spin;
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.spin === spin) {
+      arrayItem.count += 10;
+    }
+  });
+  // console.log("Spin Shafts", shafts);
+}
+
+function CalDistanceControl(value) {
+  let DorC = "CONTROL";
+  if (value == 0) {
+    DorC = "CONTROL";
+  }
+  if (value == 2.5) {
+    DorC = "DISTANCE/CONTROL";
+  }
+  if (value == 5) {
+    DorC = "DISTANCE";
+  }
+
+  distanceConverted = DorC;
+
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.distance_control === DorC) {
+      arrayItem.count += 10;
+    }
+  });
+  // console.log("DISTANCE/CONTROL Shafts", shafts);
+}
+
+function Calcweight(value) {
+  let Weight = "ULTRA LITE";
+  if (value == 0) {
+    Weight = "ULTRA LITE";
+  }
+  if (value == 2.5) {
+    Weight = "LITE";
+  }
+  if (value == 5) {
+    Weight = "MID";
+  }
+  if (value == 7.5) {
+    Weight = "HEAVY";
+  }
+  if (value == 10) {
+    Weight = "TOUR";
+  }
+
+  WeightConverted = Weight;
+
+  shafts.forEach(function (arrayItem) {
+    if (arrayItem.weight === Weight) {
+      arrayItem.count += 10;
+    }
+  });
+  // console.log("Results", shafts);
+}
+
+GetResults();
