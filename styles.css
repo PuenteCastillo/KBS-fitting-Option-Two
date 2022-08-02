@@ -50,9 +50,17 @@ h4 {
 .green {
   background-color: rgba(172, 255, 47, 0.282);
 }
+.greenSmall {
+  background-color: rgba(172, 255, 47, 0.282);
+}
 
 .green::after {
   content: "+10";
+  float: right;
+  margin-top: -20px;
+}
+.greenSmall::after {
+  content: "+5";
   float: right;
   margin-top: -20px;
 }

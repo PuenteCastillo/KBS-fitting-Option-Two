@@ -101,13 +101,7 @@ function ShowResults(value) {
        <p class="catName">TEMPO : ${arrayItem.tempo} </p> 
     </div>
 
-     <div class="categroy ${
-       ReleaseConverted == arrayItem.relese ? "green" : ""
-     }">
-       <p class="catName">Release : ${arrayItem.relese} </p> 
-    </div>
-
-
+    
    <div class="categroy ${
      trajectoryConverted == arrayItem.trajectory ? "green" : ""
    }">
@@ -119,15 +113,21 @@ function ShowResults(value) {
    </div>
 
     <div class="categroy ${
-      distanceConverted == arrayItem.distance_control ? "green" : ""
+      distanceConverted == arrayItem.distance_control ? "greenSmall" : ""
     }">
        <p class="catName">Disrtance or Control :  ${
          arrayItem.distance_control
        }</p> 
     </div>
 
+    <div class="categroy ${
+      ReleaseConverted == arrayItem.relese ? "greenSmall" : ""
+    }">
+      <p class="catName">Release : ${arrayItem.relese} </p> 
+   </div>
+   
      <div class="categroy  ${
-       WeightConverted == arrayItem.weight ? "green" : ""
+       WeightConverted == arrayItem.weight ? "greenSmall" : ""
      }">
       <p class="catName"> Weight : ${arrayItem.weight}</p> 
     </div>
@@ -205,7 +205,7 @@ function CalcreleseRange(value) {
 
   shafts.forEach(function (arrayItem) {
     if (arrayItem.relese === Release) {
-      arrayItem.count += 10;
+      arrayItem.count += 5;
     }
   });
   // console.log("Relese Shafts", shafts);
@@ -269,7 +269,7 @@ function CalDistanceControl(value) {
 
   shafts.forEach(function (arrayItem) {
     if (arrayItem.distance_control === DorC) {
-      arrayItem.count += 10;
+      arrayItem.count += 5;
     }
   });
   // console.log("DISTANCE/CONTROL Shafts", shafts);
@@ -287,17 +287,17 @@ function Calcweight(value) {
     Weight = "MID";
   }
   if (value == 7.5) {
-    Weight = "HEAVY";
+    Weight = "TOUR";
   }
   if (value == 10) {
-    Weight = "TOUR";
+    Weight = "HEAVY";
   }
 
   WeightConverted = Weight;
 
   shafts.forEach(function (arrayItem) {
     if (arrayItem.weight === Weight) {
-      arrayItem.count += 10;
+      arrayItem.count += 5;
     }
   });
   // console.log("Results", shafts);
