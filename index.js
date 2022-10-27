@@ -216,8 +216,14 @@ function CalcTrajectory(value) {
   if (value == 0) {
     Trajectory = "LOW";
   }
+  if (value == 1.25) {
+    Trajectory = "MID/LOW";
+  }
   if (value == 2.5) {
     Trajectory = "MID";
+  }
+  if (value == 3.75) {
+    Trajectory = "MID/HIGH";
   }
   if (value == 5) {
     Trajectory = "HIGH";
@@ -234,11 +240,18 @@ function CalcTrajectory(value) {
 
 function CalcSpin(value) {
   let spin = "LOW";
+
   if (value == 0) {
     spin = "LOW";
   }
+  if (value == 1.25) {
+    spin = "MID/LOW";
+  }
   if (value == 2.5) {
     spin = "MID";
+  }
+  if (value == 3.75) {
+    spin = "MID/HIGH";
   }
   if (value == 5) {
     spin = "HIGH";
@@ -277,20 +290,16 @@ function CalDistanceControl(value) {
 
 function Calcweight(value) {
   let Weight = "ULTRA LITE";
+  console.log("calc", value);
   if (value == 0) {
     Weight = "ULTRA LITE";
   }
-  if (value == 2.5) {
+  if (value == 5) {
     Weight = "LITE";
   }
-  if (value == 5) {
-    Weight = "MID";
-  }
-  if (value == 7.5) {
-    Weight = "TOUR";
-  }
+
   if (value == 10) {
-    Weight = "HEAVY";
+    Weight = "TOUR";
   }
 
   WeightConverted = Weight;
