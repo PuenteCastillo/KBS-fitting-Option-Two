@@ -51,7 +51,7 @@ let AvailableShafts = [
   //   trajectory: "MID",
   //   spin: "HIGH",
   //   distance_control: "DISTANCE",
-  //   weight: "HEAVY",
+  //   weight: "TOUR",
   //   count: 0,
   // },
   {
@@ -65,7 +65,7 @@ let AvailableShafts = [
     trajectory: "MID",
     spin: "MID",
     distance_control: "DISTANCE",
-    weight: "HEAVY",
+    weight: "TOUR",
     count: 0,
   },
   {
@@ -79,7 +79,7 @@ let AvailableShafts = [
     trajectory: "MID",
     spin: "MID",
     distance_control: "DISTANCE",
-    weight: "HEAVY",
+    weight: "TOUR",
     count: 0,
   },
   //   C-Taper
@@ -136,7 +136,7 @@ let AvailableShafts = [
     trajectory: "LOW",
     spin: "LOW",
     distance_control: "CONTROL",
-    weight: "HEAVY",
+    weight: "TOUR",
     count: 0,
   },
   {
@@ -150,7 +150,7 @@ let AvailableShafts = [
     trajectory: "LOW",
     spin: "LOW",
     distance_control: "CONTROL",
-    weight: "HEAVY",
+    weight: "TOUR",
     count: 0,
   },
   //   $-Taper
