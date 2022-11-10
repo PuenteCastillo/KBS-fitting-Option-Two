@@ -97,18 +97,22 @@ function ShowResults(value) {
     </h4>
     <h5>  Swing Speed: ${arrayItem.swing_speed}</h5>
 
-    <div class="categroy ${TempoConverted == arrayItem.tempo ? "green" : ""}">
+    <div class="categroy ${
+      TempoConverted == arrayItem.tempo ? "green drakGreen" : ""
+    }">
        <p class="catName">TEMPO : ${arrayItem.tempo} </p> 
     </div>
 
     
    <div class="categroy ${
-     trajectoryConverted == arrayItem.trajectory ? "green" : ""
+     trajectoryConverted == arrayItem.trajectory ? "green drakGreen" : ""
    }">
       <p class="catName"> TRAJECTORY : ${arrayItem.trajectory} </p> 
     </div>
 
-   <div class="categroy ${SpinConverted == arrayItem.spin ? "green" : ""}">
+   <div class="categroy ${
+     SpinConverted == arrayItem.spin ? "green drakGreen" : ""
+   }">
        <p class="catName">SPIN :  ${arrayItem.spin}</p> 
    </div>
 
@@ -183,7 +187,7 @@ function CalcTemp(value) {
   TempoConverted = Tempo;
   shafts.forEach(function (arrayItem) {
     if (arrayItem.tempo === Tempo) {
-      arrayItem.count += 10;
+      arrayItem.count += 11;
     }
   });
   // console.log("tempo Shafts", shafts);
@@ -232,7 +236,7 @@ function CalcTrajectory(value) {
   trajectoryConverted = Trajectory;
   shafts.forEach(function (arrayItem) {
     if (arrayItem.trajectory === Trajectory) {
-      arrayItem.count += 10;
+      arrayItem.count += 11;
     }
   });
   // console.log("Trajectory Shafts", shafts);
@@ -260,7 +264,7 @@ function CalcSpin(value) {
   SpinConverted = spin;
   shafts.forEach(function (arrayItem) {
     if (arrayItem.spin === spin) {
-      arrayItem.count += 10;
+      arrayItem.count += 11;
     }
   });
   // console.log("Spin Shafts", shafts);

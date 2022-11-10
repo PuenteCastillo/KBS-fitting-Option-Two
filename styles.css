@@ -52,12 +52,15 @@ h4 {
 .green {
   background-color: rgba(172, 255, 47, 0.282);
 }
+.drakGreen {
+  background-color: rgba(0, 255, 0, 0.447);
+}
 .greenSmall {
   background-color: rgba(172, 255, 47, 0.282);
 }
 
 .green::after {
-  content: "+10";
+  content: "+11";
   float: right;
   margin-top: -20px;
 }
