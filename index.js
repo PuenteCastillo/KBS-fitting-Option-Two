@@ -73,7 +73,29 @@ function ResetCount() {
   // console.log("count reset", shafts);
 }
 
+function filterByWeight(value) {
+  let unfiltered = value;
+  let weightValue = $("#weight").val();
+
+  let Weight = "LITE";
+  if (weightValue == 0) {
+    Weight = "ULTRA LITE";
+  }
+  if (weightValue == 5) {
+    Weight = "LITE";
+  }
+
+  if (weightValue == 10) {
+    Weight = "TOUR";
+  }
+
+  let filteredweight = unfiltered.filter(
+    (unfiltered) => unfiltered.weight == Weight
+  );
+  return filteredweight;
+}
 function ShowResults(value) {
+  let weightval = $("#weight").val();
   var Material = value;
   sortByKey(shafts, "count");
   shafts = shafts.reverse();
@@ -83,11 +105,13 @@ function ShowResults(value) {
   // console.log("Results", filteredshafts);
 
   filteredshafts = filterSwingSpeed(filteredshafts);
-  // console.log("Results", filteredshafts);
 
-  if (filteredshafts.length > 0) {
+  filterWeight = filterByWeight(filteredshafts);
+  console.log("filterWeight", filterWeight);
+
+  if (filterWeight.length > 0) {
     let html = "";
-    filteredshafts.forEach(function (arrayItem) {
+    filterWeight.forEach(function (arrayItem) {
       html += `
     <div class="col-md-4">
     <div class="items ">
