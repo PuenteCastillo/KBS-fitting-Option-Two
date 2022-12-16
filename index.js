@@ -160,7 +160,7 @@ function ShowResults(value) {
       <p class="catName"> Weight : ${arrayItem.weight}</p> 
     </div>
 
-    <p class="p-total">(Point Total: ${arrayItem.count})</p>
+ 
     
     </div> </div>`;
     });

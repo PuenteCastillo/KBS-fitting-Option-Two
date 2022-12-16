@@ -60,12 +60,12 @@ h4 {
 }
 
 .green::after {
-  content: "+11";
+  /* content: "+11"; */
   float: right;
   margin-top: -20px;
 }
 .greenSmall::after {
-  content: "+5";
+  /* content: "+5"; */
   float: right;
   margin-top: -20px;
 }
